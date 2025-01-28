@@ -76,12 +76,8 @@ WSGI_APPLICATION = 'todoApp.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.getenv('Todos'),
-        'USER': os.getenv('root'),
-        'PASSWORD': os.getenv('Chandu123'),
-        'HOST': os.getenv('172.17.0.2'), 
-        'PORT': '3306',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
