@@ -80,7 +80,7 @@ DATABASES = {
         'NAME': os.getenv('Todos'),
         'USER': os.getenv('root'),
         'PASSWORD': os.getenv('Chandu123'),
-        'HOST': os.getenv('mysql-container'), 
+        'HOST': os.getenv('172.17.0.2'), 
         'PORT': '3306',
     }
 }
