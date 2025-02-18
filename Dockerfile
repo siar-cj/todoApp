@@ -7,3 +7,5 @@ COPY requirements.txt /usr/src/app/
 # Optionally upgrade pip
 RUN pip install --upgrade pip
 
+RUN python manage.py runserver 0.0.0.0:8096
+
