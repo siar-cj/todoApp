@@ -7,13 +7,13 @@ RUN apk add --no-cache --virtual .build-deps gcc musl-dev libffi-dev
 WORKDIR /app
 
 # Copy the requirements file into the container
-COPY requirements.txt /usr/src/app/
+COPY requirements.txt /app/
 
-# Optionally upgrade pip
-RUN pip install --upgrade pip
+# List the contents of the /app directory to verify the file is there
+RUN ls -l /app
 
-# Install dependencies from the requirements file
-RUN pip install -r requirements.txt
+# Install virtualenv and dependencies from the requirements file
+RUN pip install --upgrade pip && pip install -r requirements.txt
 
 # Clean up build dependencies after installing packages
 RUN apk del .build-deps
