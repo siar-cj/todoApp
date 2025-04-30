@@ -1,25 +1,22 @@
-FROM python:3.9-alpine
+# Pulling image from Docker Hub || Image: Python 3.13.3
+FROM python:3.13.3-slim-bullseye
 
-# Install necessary build dependencies (gcc, musl-dev, libffi-dev)
-RUN apk add --no-cache --virtual .build-deps gcc musl-dev libffi-dev
+# Set working directory
+WORKDIR /usr/share/pyapp
 
-# Set the working directory in the container
-WORKDIR /app
-
-# Copy the requirements file into the container
-COPY requirements.txt /app/
-
-# List the contents of the /app directory to verify the file is there
-RUN ls -l /app
-
-# Install virtualenv and dependencies from the requirements file
+# Copy requirements.txt if existed and install them
+COPY requirements.txt .
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
-# Clean up build dependencies after installing packages
-RUN apk del .build-deps
+# Copy rest of the files
+COPY . .
 
-# Expose the port the app will run on
-EXPOSE 8096
+# Expose port to host the application
+EXPOSE 8174
 
-# Start the Django application
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8096"]
+# Run the application
+CMD ["sh", "-c", "\
+    python3 manage.py collectstatic --noinput && \
+    python3 manage.py makemigrations && \
+    python3 manage.py migrate && \
+    python3 manage.py runserver 0.0.0.0:8174"]
